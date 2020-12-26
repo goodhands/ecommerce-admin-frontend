@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import axios from 'axios';
+import './main.css';
 
 Vue.config.productionTip = false
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
