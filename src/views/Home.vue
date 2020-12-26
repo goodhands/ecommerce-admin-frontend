@@ -1,15 +1,20 @@
 <template>
     <div>
-      <h2 class="font-bold text-xl">Overview</h2>
+        <Search/>
     </div>
 </template>
 
 <script>
+import Search from '@/components/Search.vue';
+
 export default {
     data: function(){
         return {
             page: 'Home'
         }
+    },
+    components:{
+        Search
     }
 }
 </script>
