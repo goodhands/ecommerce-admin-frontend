@@ -1,6 +1,6 @@
 <template>
     <div>
-
+      <h2 class="font-bold text-xl">Overview</h2>
     </div>
 </template>
 
