@@ -1,19 +1,11 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-    <form @submit.prevent="login" method="get">
-      <input type="email" name="email" id="" v-model="email">
-      <input type="password" name="password" id="" v-model="password">
-      <button type="submit">Login</button>
-    </form>
+
   </div>
 </template>
 
 <script>
 import axios from 'axios';
-
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
@@ -22,9 +14,6 @@ export default {
       email: '',
       password: ''
     }
-  },
-  components: {
-    HelloWorld
   },
   methods:{
     login(){
