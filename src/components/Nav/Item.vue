@@ -1,5 +1,5 @@
 <template>
-    <ul>
+    <ul class="space-y-2">
         <li v-for="item in items" v-bind:key="item.name">
             <router-link :to="item.url" class="nav-items text-sm">
                 <span v-html="item.icon"></span>

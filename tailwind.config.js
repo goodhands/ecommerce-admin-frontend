@@ -11,7 +11,7 @@ module.exports = {
       },
       fontFamily:{
         'body': ['Montserrat', 'sans-serif'],
-        'heading': ['Oxygen', 'sans-serif'],
+        'heading': ['Libre Baskerville', 'serif'],
       }
     },
   },

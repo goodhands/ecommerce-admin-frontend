@@ -1,5 +1,5 @@
 <template>
-    <ul class="flex flex-col space-y-3">
+    <ul class="flex flex-col space-y-1">
         <li class="w-full" v-for="child in children" v-bind:key="child.name">
             <router-link class="nav-child ml-6" :to="child.url">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
