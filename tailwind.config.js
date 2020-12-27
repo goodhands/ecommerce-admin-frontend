@@ -8,6 +8,10 @@ module.exports = {
       },
       borderWidth:{
         '1': '1px'
+      },
+      fontFamily:{
+        'body': ['Montserrat', 'sans-serif'],
+        'heading': ['Oxygen', 'sans-serif'],
       }
     },
   },

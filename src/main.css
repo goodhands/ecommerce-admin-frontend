@@ -1,4 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400&family=Oxygen:wght@700&display=swap');
+
 /*! @import */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.nav-items{
+    @apply flex flex-row items-center p-2 font-bold space-x-2 font-heading hover:bg-gray-50;
+}
+
+.nav-items svg{
+    @apply h-4 mr-2;
+}
+
+.router-link-exact-active.router-link-active{
+    @apply bg-gray-100;
+}
+
+.nav-child{
+    @apply text-xs nav-items;
+}
