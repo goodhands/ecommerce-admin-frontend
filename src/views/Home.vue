@@ -23,14 +23,14 @@
                     <span class="text-muted text-gray-500 block mb-5 text-sm">Customers</span>
                     <div>
                         <span class="flex flex-row justify-between items-center">
-                            <h5>+3,000</h5>
-                            <span class="text-muted text-gray-400 text-sm py-3">30% increase this week</span>
+                            <h5>+{{ this.weeklyStats.customers }}</h5>
+                            <span class="text-muted text-gray-400 text-sm py-3">
+                                30% increase this week
+                            </span>
                         </span>
-                        <!-- If there are no orders -->
-                        <!-- <span class="text-muted text-gray-400 text-sm py-3">No sales yet</span> -->
                         <hr>
                         <span class="flex flex-row justify-between items-center text-muted text-gray-400 text-sm py-3">
-                            No orders yet
+                            See all customers
                             <a href="#" class="text-blue-300">View orders ></a>
                         </span>
                     </div>
