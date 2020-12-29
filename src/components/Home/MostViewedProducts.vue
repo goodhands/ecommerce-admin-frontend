@@ -6,10 +6,12 @@
         </h2>
         <hr class="-left-0 -right-0 absolute">
         <lists-flex :items="products">
-            <template scope="{item}">    
+            <template slot-scope="{item}">    
                 <div class="flex flex-row space-x-2">
                     <img class="block h-5 w-5" :src="item.picture" alt="">
-                    <strong class="text-sm">{{ item.name }}</strong>
+                    <strong class="text-sm">
+                    <router-link to="/products/item">{{ item.name }}</router-link>
+                    </strong>
                 </div>
                 <span>{{ item.views }} views</span>
             </template>

@@ -27,5 +27,5 @@
 }
 
 .btn{
-    @apply border border-gray-50 shadow-sm rounded py-1 px-2 hover:bg-gray-100
+    @apply border-1 border-gray-50 shadow-sm rounded py-1 px-2 hover:bg-gray-100
 }

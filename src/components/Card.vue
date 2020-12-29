@@ -20,6 +20,6 @@ export default {
     components:{
         ClipLoader  
     },
-    props: ['size', 'busy']
+    props: ['size', 'busy', 'name'] //use the name prop to track cards
 }
 </script>
