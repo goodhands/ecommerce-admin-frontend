@@ -5,7 +5,7 @@
             <span>Dec 12 - 24</span>
         </h2>
         <hr class="-left-0 -right-0 absolute">
-        <lists-flex :items="products">
+        <lists-flex :items="products" :busy="products.length < 1">
             <template slot-scope="{item}">    
                 <div class="flex flex-row space-x-2">
                     <img class="block h-5 w-5" :src="item.picture" alt="">
