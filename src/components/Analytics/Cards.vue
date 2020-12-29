@@ -2,7 +2,7 @@
     <div class="flex flex-row space-x-2">
         <card size="w-4/12" :busy="Object.keys(this.weeklyStats).length == 0">
             <span class="text-muted text-gray-500 block mb-5 text-sm">Sales</span>
-            <div>
+            <div v-if="Object.keys(this.weeklyStats).length > 0">
                 <span class="flex flex-row justify-between items-center">
                     <h5 v-money="this.weeklyStats.sales_total"></h5>
                     <span class="text-muted text-gray-400 text-sm py-3">Sales this week</span>
@@ -21,7 +21,7 @@
         </card>
         <card size="w-4/12" :busy="Object.keys(this.weeklyStats).length == 0">
             <span class="text-muted text-gray-500 block mb-5 text-sm">Customers</span>
-            <div>
+            <div v-if="Object.keys(this.weeklyStats).length > 0">
                 <span class="flex flex-row justify-between items-center">
                     <h5>+{{ this.weeklyStats.customers }}</h5>
                     <span class="text-muted text-gray-400 text-sm py-3">

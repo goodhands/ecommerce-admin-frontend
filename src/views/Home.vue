@@ -10,19 +10,7 @@
                 <h2 class="font-heading flex flex-row items-center">
                     3 new pending orders
                 </h2>
-                <ul class="py-5 space-y-1">
-                    <li class="card flex flex-row justify-between items-center">
-                        <span class="flex flex-col">
-                            <span class="font-bold" v-money="120000"></span>
-                            <span class="text-sm">Alimosho, Lagos</span>
-                        </span>
-                        <span class="flex flex-col">
-                            <p class="text-sm">HP Elite book 1030 </p>
-                            <span class="text-sm">x 1</span>
-                        </span>
-                        <router-link class="btn btn-primary" to="products">View</router-link>
-                    </li>
-                </ul>
+                <recent-orders></recent-orders>
             </card>
             <!-- Most viewed products -->
             <card  name="notification.productViews" class="w-6/12 p-4">
@@ -81,6 +69,7 @@
 import AnalyticsCards from '@/components/Analytics/Cards.vue';
 import Card from '@/components/Card.vue';
 import MostViewedProducts from '@/components/Home/MostViewedProducts.vue';
+import RecentOrders from '@/components/Home/RecentOrders.vue';
 // import Dashboard from '../../src/services/Dashboard';
 
 export default {
@@ -93,7 +82,8 @@ export default {
     components:{
         AnalyticsCards,
         Card,
-        MostViewedProducts
+        MostViewedProducts,
+        RecentOrders
     },
 
     computed:{
