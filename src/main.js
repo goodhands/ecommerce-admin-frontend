@@ -23,6 +23,11 @@ const money = new Intl.NumberFormat('en-NG', {
 
 Vue.directive('money', {
   //using update for cases where the value is from db
+  inserted: function(el, binding){
+    if(!binding.value) return;
+    el.innerText = money.format(binding.value);
+    console.log(binding.value, binding);
+  },
   update: function(el, binding){
     if(!binding.value) return;
     el.innerText = money.format(binding.value);

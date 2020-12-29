@@ -1,99 +1,81 @@
 <template>
     <div class="pt-10">
-        <section id="intro" class="py-5">
-            <div class="flex flex-row space-x-2">
-                <card size="w-4/12" :busy="Object.keys(this.weeklyStats).length == 0">
-                    <span class="text-muted text-gray-500 block mb-5 text-sm">Sales</span>
-                    <div>
-                        <span class="flex flex-row justify-between items-center">
-                            <h5 v-money="this.weeklyStats.sales_total"></h5>
-                            <span class="text-muted text-gray-400 text-sm py-3">Sales this week</span>
-                        </span>
-                        <hr>
-                        <span class="flex flex-row justify-between items-center py-3">
-                            <h5 class="text-gray-400 text-sm" v-if="this.weeklyStats.new_orders > 0">
-                                {{ this.weeklyStats.new_orders }} new orders
-                            </h5>
-                            <small v-else class="text-gray-400 text-sm">No orders yet</small>
-                            <a :href="this.weeklyStats.sales_link" class="text-blue-300 text-sm">View orders ></a>
-                        </span>
-                    </div>
-                </card>
-                <card size="w-4/12" :busy="Object.keys(this.weeklyStats).length == 0">
-                    <span class="text-muted text-gray-500 block mb-5 text-sm">Customers</span>
-                    <div>
-                        <span class="flex flex-row justify-between items-center">
-                            <h5>+{{ this.weeklyStats.customers }}</h5>
-                            <span class="text-muted text-gray-400 text-sm py-3">
-                                30% increase this week
-                            </span>
-                        </span>
-                        <hr>
-                        <span class="flex flex-row justify-between items-center text-muted text-gray-400 text-sm py-3">
-                            See all customers
-                            <a href="#" class="text-blue-300">View orders ></a>
-                        </span>
-                    </div>
-                </card>
-                <card size="w-4/12" :busy="Object.keys(this.weeklyStats).length == 0">
-                    <span class="text-muted text-gray-500 block mb-5 text-sm">Visits</span>
-                    <div>
-                        <span class="flex flex-row justify-between items-center">
-                            <h5>30.000</h5>
-                            <span class="text-muted text-gray-400 text-sm py-3">Visits in the past week</span>
-                        </span>
-                        <!-- If there are no orders -->
-                        <!-- <span class="text-muted text-gray-400 text-sm py-3">No sales yet</span> -->
-                        <hr>
-                        <span class="flex flex-row justify-between items-center text-muted text-gray-400 text-sm py-3">
-                            No orders yet
-                            <a href="#" class="text-blue-300">View orders ></a>
-                        </span>
-                    </div>
-                </card>
-            </div>
+        <section id="intro">
+            <analytics-cards></analytics-cards>
+        </section>
+        <!-- To do section -->
+        <section id="todo" class="flex flex-row justify-evenly space-x-2">
+            <card class="w-6/12">
+                <h2 class="font-bold flex flex-row items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                    </svg>
+                    3 new pending orders
+                </h2>
+                <ul class="py-5 space-y-1">
+                    <li class="card flex flex-row justify-between items-center">
+                        <strong class="text-sm">HP Elite book 1030 </strong>
+                        <span class="text-sm" v-money="120000"></span>-<span class="text-sm">2d ago</span>
+                        <router-link class="btn btn-primary" to="products">View</router-link>
+                    </li>
+                    <li class="card flex flex-row justify-between items-center">
+                        <strong class="text-sm">Phone holder</strong>
+                        <span class="text-sm" v-money="5000"></span>-<span class="text-sm">2d ago</span>
+                        <router-link class="btn btn-primary" to="products">View</router-link>
+                    </li>
+                    <li class="card flex flex-row justify-between items-center">
+                        <strong class="text-sm">Phone holder</strong>
+                        <span class="text-sm" v-money="5000"></span>-<span class="text-sm">2d ago</span>
+                        <router-link class="btn btn-primary" to="products">View</router-link>
+                    </li>
+                </ul>
+            </card>
+            <card class="w-6/12 py-5">
+                <h2>Finish setting up your store</h2>
+                <span class="text-sm">Start making sales with your new store 🥂</span>
+                <ul class="py-5 space-y-1">
+                    <li class="card flex flex-row justify-between items-center">
+                        Add up to 5 products
+                        <router-link class="btn btn-primary" to="products">Add</router-link>
+                    </li>
+                    <li class="card flex flex-row justify-between items-center">
+                        Connect a delivery provider
+                        <router-link class="btn btn-primary" to="products">Add</router-link>
+                    </li>
+                    <li class="card flex flex-row justify-between items-center">
+                        Tell your customers about your new store
+                        <router-link class="btn btn-primary" to="products">Share</router-link>
+                    </li>
+                </ul>
+            </card>
         </section>
     </div>
 </template>
 
 <script>
+import AnalyticsCards from '@/components/Analytics/Cards.vue';
 import Card from '@/components/Card.vue';
-import Dashboard from '../../src/services/Dashboard';
+// import Dashboard from '../../src/services/Dashboard';
 
 export default {
     data: function(){
         return {
-            page: 'Home',
-            analytics: {
-                labels: ["Jan", "Feb", "Mar"],
-                datasets: [
-                    {
-                        label: "2015",
-                        data: [12,34,2,4,45,34,2]
-                    }
-                ]
-            },
-            weeklyStats: [],
-            
+            page: 'Home',            
         }
     },
     
     components:{
+        AnalyticsCards,
         Card
     },
 
-    methods:{
-        loadWeeklyStats(){
-            Dashboard.getWeeklyStats().then(response => {
-                this.weeklyStats = response.data;
-            }).catch(err => { console.log(err) })
-        }
-    },
     computed:{
     },
-    mounted(){
-        this.loadWeeklyStats();
-    }
 }
-
 </script>
+
+<style lang="css">
+    section{
+        @apply py-5;
+    }
+</style>
