@@ -13,7 +13,9 @@
                         {{ this.weeklyStats.new_orders }} new orders
                     </h5>
                     <small v-else class="text-gray-400 text-sm">No orders yet</small>
-                    <a :href="this.weeklyStats.sales_link" class="text-blue-300 text-sm">View orders ></a>
+                    <router-link class="text-blue-300 text-sm" :to="this.weeklyStats.sales_link">
+                        View orders >
+                    </router-link>
                 </span>
             </div>
         </card>
@@ -29,7 +31,7 @@
                 <hr>
                 <span class="flex flex-row justify-between items-center text-muted text-gray-400 text-sm py-3">
                     See all customers
-                    <a :href="this.weeklyStats.customers_link" class="text-blue-300">View customers ></a>
+                    <router-link class="text-blue-300" :to="this.weeklyStats.customers_link">View customers ></router-link>
                 </span>
             </div>
         </card>
@@ -43,7 +45,7 @@
                 <hr>
                 <span class="flex flex-row justify-between items-center text-muted text-gray-400 text-sm py-3">
                     Your store URL
-                    <a href="#" class="text-blue-500">{{ "michtolam.store.com" }}</a>
+                    <a href="#" target="_blank" class="text-blue-500">{{ "michtolam.store.com" }}</a>
                 </span>
             </div>
         </card>
