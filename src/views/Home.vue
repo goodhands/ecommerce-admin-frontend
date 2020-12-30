@@ -11,7 +11,7 @@
             <!-- Most viewed products -->
             <card  name="notification.productViews" class="w-6/12 p-4">
                 <div class="header mb-4">
-                    <span class="text-muted">Over the past 7 days</span>
+                    <span class="text-muted">This week stats</span>
                     <h2 class="font-heading">These products were viewed the most</h2>
                     <p></p>
                 </div>

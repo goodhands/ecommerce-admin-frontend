@@ -4,7 +4,7 @@
             {{ deliveringSoon.length }} order(s) are expected to deliver over the next 3 days
         </span>
         <span class="text-muted" v-else>
-            {{ orders.length > 0 ? "No pending orders for now" : "No orders are delivering soon" }}
+            {{ orders.length > 0 ? "You have some new orders" : "You do not have new orders at the moment" }}
         </span>
         <h2 class="font-heading flex flex-row items-center">
             {{ orders.length }} new pending orders
