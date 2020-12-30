@@ -1,5 +1,14 @@
 <template>
     <div>
+        <span class="text-muted" v-if="deliveringSoon.length > 0">
+            {{ deliveringSoon.length }} order(s) are expected to deliver over the next 3 days
+        </span>
+        <span class="text-muted" v-else>
+            {{ orders.length > 0 ? "No pending orders for now" : "No orders are delivering soon" }}
+        </span>
+        <h2 class="font-heading flex flex-row items-center">
+            {{ orders.length }} new pending orders
+        </h2>
         <lists-flex :items="firstThreeorders" :busy="orders.length < 1">
             <template slot-scope="{item}">    
                 <span class="flex flex-col">
@@ -60,6 +69,26 @@ export default {
             }else{
                 return this.orders;
             }
+        },
+
+        deliveringSoon(){
+            const hasDeliveryDate = [];
+
+            this.orders.map(order => {
+                if(order.delivery_date){
+                    const deliveryDate = new Date(order.delivery_date).getTime();
+                    const daysRemaining = deliveryDate - new Date().getTime();
+                    const daysRemainingToDay = Math.floor(daysRemaining / 86400000); //86400000 = miliseconds in a day
+
+                    //only notify about deliveries due in 3 or less days
+                    if(daysRemainingToDay <= 3){
+                        //1 day or 2 days. English bro
+                        hasDeliveryDate.push(daysRemainingToDay);
+                    }
+                }
+            })
+
+            return hasDeliveryDate;
         }
     }, 
     mounted(){

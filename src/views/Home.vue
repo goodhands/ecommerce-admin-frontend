@@ -6,10 +6,6 @@
         <!-- To do section -->
         <section id="todo" class="flex flex-row justify-evenly space-x-2">
             <card name="notification.orders" class="w-6/12">
-                <span class="text-muted">2 orders are expected to deliver tomorrow</span>
-                <h2 class="font-heading flex flex-row items-center">
-                    3 new pending orders
-                </h2>
                 <recent-orders></recent-orders>
             </card>
             <!-- Most viewed products -->

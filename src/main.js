@@ -26,14 +26,16 @@ Vue.directive('money', {
   inserted: function(el, binding){
     if(!binding.value) return;
     el.innerText = money.format(binding.value);
-    console.log(binding.value, binding);
   },
   update: function(el, binding){
     if(!binding.value) return;
     el.innerText = money.format(binding.value);
-    console.log(binding.value, binding);
   }
 });
+
+Vue.filter('money', function(value){
+  return money.format(value);
+})
 
 Vue.filter('money', function(value){
   return money.format(value);
