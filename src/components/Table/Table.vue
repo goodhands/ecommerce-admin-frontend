@@ -33,8 +33,10 @@
                     <tbody class="bg-white divide-y divide-gray-200">
                         <tr v-for="(item, index) in data" :key="index">
                             <td class="px-6 py-4 whitespace-nowrap" v-for="(heading, indices) in headings" :key="indices">
-                                <div class="text-sm text-gray-900">{{ item[heading.key] }}</div>
-                                <div class="text-sm text-gray-500">Optimization</div>
+                                <slot v-bind:[heading.key]="item[heading.key]" v-if="(slots.length > 0 ? slots.find(sl => sl == heading.key) : true)">
+                                    <div class="text-sm text-gray-900">{{ item[heading.key] }}</div>
+                                </slot>
+                                <div class="text-sm text-gray-900" v-else>{{ item[heading.key] }}</div>
                             </td>
                         </tr>
                     </tbody>
@@ -69,6 +71,12 @@ export default {
             type: Array,
             required: true
         },
+        slots:{
+            type: Array,
+            default: function(){
+                return [];
+            },
+        },
         filter: {
             type: Boolean,
             required: false,
@@ -81,5 +89,10 @@ export default {
             this.data = value;
         }
     }, 
+    computed:{
+        keyName(){
+            return this.headings.key;
+        }
+    }
 }
 </script>

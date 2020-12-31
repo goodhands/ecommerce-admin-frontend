@@ -1,6 +1,12 @@
 <template>
     <div class="my-10">
-        <DataTable :headings="headings" :options="options" :data="data" :filter="true"/>
+        <DataTable :headings="headings" :options="options" :data="data" :filter="true" :slots="['order']">
+            <template v-slot="{order}">
+                <span class="bg-red-500">
+                    {{ "#" + order }}
+                </span>                   
+            </template>
+        </DataTable>
     </div>
 </template>
 
