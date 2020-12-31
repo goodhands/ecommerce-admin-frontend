@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col" @filtered="onFiltered">
+    <div class="flex flex-col">
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-2 h-screen align-middle inline-block min-w-full sm:px-6 lg:px-4">
             <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -15,9 +15,9 @@
                             <th
                                 colspan="3"
                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                v-if="filter && !options.find(op => op == 'Filter')"
+                                v-if="filter && !options.find(op => op.content == 'Filter')"
                             >
-                                <Filter/>
+                                <KeywordFilter :data="data" @filtered="onFiltered"/>
                             </th>
                         </tr>
                     </thead>
@@ -46,11 +46,12 @@
 </template>
 
 <script>
-import Filter from '@/components/Table/Filter.vue';
+import KeywordFilter from '@/components/Table/Filter.vue';
 
 export default {
+    name: "DataTable",
     components:{
-        Filter,
+        KeywordFilter,
     },
     props:{
         // lenght must match the length of headings. 
@@ -80,6 +81,5 @@ export default {
             this.data = value;
         }
     }, 
-
 }
 </script>

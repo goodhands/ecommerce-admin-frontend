@@ -1,13 +1,13 @@
 <template>
     <input type="text" v-model="text" 
             placeholder="Search..." 
-            @keyup="filter"
+            v-on:keyup="filter"
             class="card w-full px-2 text-sm rounded-sm outline-none border-b-1 border-gray-300"/>
 </template>
 
 <script>
 export default {
-    name: "Filter",
+    name: "KeywordFilter",
     props: ['data'],
     data() {
         return {
@@ -17,8 +17,8 @@ export default {
     methods:{
         filter(){
             //do some filtering with `text`
-            const filtered = this.data.slice(0, 1);
-            this.$emit('filtered', filtered);
+            const filtered = this.data.splice(0, 1);
+            this.$emit("filtered", filtered);
         }
     }
 }

@@ -1,14 +1,13 @@
 <template>
     <div class="my-10">
-        <Table :headings="headings" :options="options" :data="data">
-        </Table>
+        <DataTable :headings="headings" :options="options" :data="data" :filter="true"/>
     </div>
 </template>
 
 <script>
-import Table from '@/components/Table/Table.vue'
+import DataTable from '@/components/Table/Table.vue'
 import Select from '@/components/Menu/Select.vue';
-import Filter from '@/components/Table/Filter.vue';
+// import Filter from '@/components/Table/Filter.vue';
 
 export default {
     data() {
@@ -36,13 +35,12 @@ export default {
             ],
             options:[
                 {colspan:1, content: Select},
-                {colspan: 1}, 
-                {colspan: 3, content: Filter}
+                {colspan: 1}
             ]
         }
     },
     components:{
-        Table
-    }
+        DataTable
+    },
 }
 </script>
