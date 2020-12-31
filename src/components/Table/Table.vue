@@ -12,6 +12,13 @@
                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 <component :is="option.content"></component>
                             </th>
+                            <th
+                                colspan="3"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                v-if="filter && !options.find(op => op == 'Filter')"
+                            >
+                                <Filter/>
+                            </th>
                         </tr>
                     </thead>
                     <thead class="bg-gray-50">
@@ -39,16 +46,16 @@
 </template>
 
 <script>
-import Select from '@/components/Menu/Select.vue';
-import Search from '../Search.vue';
+import Filter from '@/components/Table/Filter.vue';
 
 export default {
     components:{
-        Search,
-        Select,
+        Filter,
     },
     props:{
-        // lenght must match the length of headings. e.g :headings="[{colspan:1, content:'Type'}, {colspan: 1}, {colspan: 1, content: '<disha/>'}]"
+        // lenght must match the length of headings. 
+        //e.g :headings="[{colspan:1, content:'Type'}, 
+        //{colspan: 1}, {colspan: 1, content: '<search/>'}]"
         options:{
             type: Array, 
             required: true
@@ -60,6 +67,11 @@ export default {
         data:{
             type: Array,
             required: true
+        },
+        filter: {
+            type: Boolean,
+            required: false,
+            default: true
         }
     },
     methods:{
