@@ -59,6 +59,8 @@ export default {
                 this.orders = response.data.orders;
                 this.count = response.data.orders_count;
                 this.details_link = response.data.full_orders_link ? response.data.full_orders_link : null;
+
+                console.log(response);
             }).catch(err => console.log(err));
         }
     },

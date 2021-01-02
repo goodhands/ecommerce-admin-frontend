@@ -3,13 +3,12 @@ import App from './App.vue'
 import axios from 'axios';
 import './main.css';
 import router from './router'
+import { Model } from 'vue-api-query'
 
 Vue.config.productionTip = false
-axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-axios.defaults.withCredentials = true;
-axios.defaults.headers.common['Accept'] = 'application/json';
-axios.defaults.baseURL = 'http://localhost:8000/api/v1/';
-axios.defaults.headers.common['Authorization'] = `Bearer 1|f2PqSraLqTaIgRJ7CMJmncNXq1YGQbpvHHFrCpw4`;
+
+// inject global axios instance as http client to Model
+Model.$http = axios
 
 //Global directives
 
