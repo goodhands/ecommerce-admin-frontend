@@ -1,3 +1,4 @@
+import router from "../../router/index";
 
 const state = () => ({
     auth: false,
@@ -32,8 +33,10 @@ const actions = {
         user.login().then( (response) => {
             rootState.busy = false;
             
-            if(Object.prototype.hasOwnProperty.call(response, "data") ){
-                commit('setAuthenticatedUser', response.data);
+            if(Object.prototype.hasOwnProperty.call(response, "name") ){
+                router.push('/');
+                commit('setAuthStatus', true);
+                commit('setAuthenticatedUser', response);
             }
 
         }).catch(error => {
