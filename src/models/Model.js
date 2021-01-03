@@ -3,7 +3,7 @@ import { Model as BaseModel } from 'vue-api-query'
 export default class Model extends BaseModel {
 
   // Define a base url for a REST API
-  baseURL(url) {
+  baseURL(url = 'http://localhost:8000/') {
     return url;
   }
 

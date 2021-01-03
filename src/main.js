@@ -4,6 +4,7 @@ import axios from 'axios';
 import './main.css';
 import router from './router'
 import { Model } from 'vue-api-query'
+import store from './store'
 
 Vue.config.productionTip = false
 
@@ -36,11 +37,8 @@ Vue.filter('money', function(value){
   return money.format(value);
 })
 
-Vue.filter('money', function(value){
-  return money.format(value);
-})
-
 new Vue({
   router,
-  render: h => h(App)
+  store,
+  render: (h) => h(App)
 }).$mount('#app')

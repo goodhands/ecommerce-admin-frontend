@@ -1,5 +1,9 @@
 <template>
-  <div id="app" class="absolute flex flex-row w-full">
+  <div v-if="!userIsLoggedIn">
+    <div class="w-full bg-black h-10"></div>
+    <router-view name="auth"/>
+  </div>
+  <div id="app" class="absolute flex flex-row w-full" v-else>
     <div id="nav" class="w-2/12 h-screen px-2 flex flex-col justify-between my-10">
       <router-link to="/" class="block">Logo</router-link>
 
@@ -16,7 +20,7 @@
         </h2>
           <Search/>
       </div>
-      <router-view/>
+      <router-view name="default"/>
     </div>
     <div id="sidebar" class="my-10 p-5 w-2/12 flex flex-col h-screen">
       <p class="font-heading text-center text-sm mb-5">Good morning Samuel</p>
@@ -37,6 +41,13 @@ export default {
     return {
 
     }
+  },
+  computed:{
+    userIsLoggedIn(){
+      return this.$store.getters.user.auth;
+    }
+  },
+  mounted(){
   },
   components:{
     NavItems,         

@@ -17,13 +17,15 @@
     "vue-api-query": "^1.8.2",
     "vue-chartjs": "^3.5.1",
     "vue-router": "^3.2.0",
-    "vue-spinner": "^1.0.4"
+    "vue-spinner": "^1.0.4",
+    "vuex": "^3.4.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss7-compat": "^2.0.2",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-router": "^4.5.9",
+    "@vue/cli-plugin-vuex": "^4.5.9",
     "@vue/cli-service": "~4.5.0",
     "autoprefixer": "^9.8.6",
     "babel-eslint": "^10.1.0",

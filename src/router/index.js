@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Orders from '../views/Orders.vue'
+import Login from '../views/auth/Login.vue';
 
 Vue.use(VueRouter)
 
@@ -25,10 +26,10 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    // route level code-splitting
-    // this generates a separate chunk (login.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "login" */ '../views/auth/Login.vue')
+    components:{
+      default: Login,
+      auth: Login
+    }
   }
 ]
 
