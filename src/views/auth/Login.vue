@@ -10,7 +10,21 @@
                         {{ user.errors.message() }}
                     </p>
                     <div class="flex flex-col">
+                        <label for="store" class="font-bold cursor-pointer">
+                            Store
+                        </label>
+                        <span class="text-muted">Enter your store unique name</span>
+                        <div class="border flex h-10 items-center justify-between outline-none px-2 rounded-sm" :class="user.errors.has('store') ? 'border-red-500' : ''">
+                            <input type="store" id="store" class="outline-none w-full" v-model="user.store">
+                            <span>.shopbot.com</span>
+                        </div>
+                        <span class="text-sm text-red-500" v-if="user.errors.has('store')">
+                            {{ user.errors.get('store') }}
+                        </span>
+                    </div>
+                    <div class="flex flex-col">
                         <label for="email" class="font-bold cursor-pointer">Email</label>
+                        <span class="text-muted">Enter your email address</span>
                         <input type="email" id="email"
                             class="px-2 outline-none border h-10 rounded-sm"
                             :class="user.errors.has('email') ? 'border-red-500' : ''" v-model="user.email">
@@ -20,13 +34,14 @@
                     </div>
                     <div class="flex flex-col">
                         <label for="password" class="font-bold cursor-pointer">Password</label>
+                        <span class="text-muted">Enter your password</span>
                         <input type="password" class="px-2 outline-none border h-10 rounded-sm" 
                                 name="password" id="password" v-model="user.password">
                         <span class="text-sm text-red-500" v-if="user.errors.has('password')">
                             {{ user.errors.get('password') }}
                         </span>
                     </div>
-                    <button type="submit" class="bg-green-300 shadow font-bold h-10 rounded">Login</button>
+                    <button type="submit" :disabled="user.errors.any() || user.data() == null" class="bg-green-300 shadow font-bold h-10 rounded">Login</button>
                 </form>
             </div>
             <div class="border-gray-200 border-r-1 w-6/12">
@@ -46,6 +61,7 @@ export default {
             user: new Form({
                 email: null,
                 password: null,
+                store: null,
             }),
         }
     },

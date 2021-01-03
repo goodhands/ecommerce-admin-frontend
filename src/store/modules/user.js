@@ -3,7 +3,6 @@ import router from "../../router/index";
 const state = () => ({
     auth: false,
     user: null,
-    error: {},
 })
 
 const mutations = {
@@ -33,10 +32,11 @@ const actions = {
         user.login().then( (response) => {
             rootState.busy = false;
             
-            if(Object.prototype.hasOwnProperty.call(response, "name") ){
+            if(Object.prototype.hasOwnProperty.call(response, "user") ){
                 router.push('/');
                 commit('setAuthStatus', true);
-                commit('setAuthenticatedUser', response);
+                commit('setAuthenticatedUser', response.user);
+                commit('store/setStore', response.store, {root: true});
             }
 
         }).catch(error => {

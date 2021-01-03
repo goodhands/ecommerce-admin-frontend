@@ -42,6 +42,7 @@ export default {
 
     }
   },
+  
   computed:{
     userIsLoggedIn(){
       return this.$store.getters.user.auth;
