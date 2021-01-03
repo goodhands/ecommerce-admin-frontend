@@ -20,16 +20,12 @@ const Dashboard  = {
      * 
      */
     async getRecentOrders(){
-        console.log(new Orders().baseURL());
         const orders = await Orders
                             .where('fulfilled', false)     
                             .where('paid', true)     
-                            .orderBy('created_at')
-                            .with('customer', 'products')      
+                            .orderBy('-created_at')
+                            .include('customer', 'products')      
                             .get();
-
-        console.log(Orders.$http);
-
         return orders;
     },
 

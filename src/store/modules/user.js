@@ -32,8 +32,18 @@ const actions = {
         user.login().then( (response) => {
             rootState.busy = false;
             
+            //init localstorage
+            const localStorage = window.localStorage;
+
             if(Object.prototype.hasOwnProperty.call(response, "user") ){
                 router.push('/');
+
+                //store some items in local storage
+                localStorage.setItem('auth', true);
+                localStorage.setItem('user', JSON.stringify(response.user));
+                localStorage.setItem('store', JSON.stringify(response.store));
+
+                //commit changes to the store
                 commit('setAuthStatus', true);
                 commit('setAuthenticatedUser', response.user);
                 commit('store/setStore', response.store, {root: true});

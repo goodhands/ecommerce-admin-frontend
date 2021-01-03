@@ -1,10 +1,15 @@
 import { Model as BaseModel } from 'vue-api-query'
-
 export default class Model extends BaseModel {
 
   // Define a base url for a REST API
-  baseURL(url = 'http://localhost:8000/') {
-    return url;
+  baseURL(url = 'http://localhost:8000') {
+    const storeUrl = JSON.parse(window.localStorage.getItem('store'));
+
+    if(!storeUrl) return url;
+
+    const fullUrl = url + '/api/v1/store/' + storeUrl.shortname;
+
+    return fullUrl || url;
   }
 
   // Implement a default request method

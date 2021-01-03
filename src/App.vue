@@ -39,16 +39,17 @@ import Search from '@/components/Search.vue';
 export default {
   data:function(){
     return {
-
+      storage: window.localStorage,
     }
   },
-  
+
   computed:{
     userIsLoggedIn(){
       return this.$store.getters.user.auth;
     }
   },
   mounted(){
+    this.$store.commit('user/setAuthStatus', this.storage.getItem('auth'));
   },
   components:{
     NavItems,         

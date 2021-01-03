@@ -4,7 +4,7 @@
             class="bg-white rounded-sm h-full my-20 shadow-lg w-10/12 flex flex-row justify-evenly">
             <div class="border-gray-200 border-r-1 w-6/12 py-10 px-10">
                 <h2 class="font-heading text-3xl font-bold">Welcome back!</h2>
-                <h2 class="font-heading text-3xl font-bold">Login to your account.</h2>
+                <h2 class="font-heading text-3xl font-bold">Login to your shop.</h2>
                 <form class="flex flex-col space-y-4 my-4 h-full" @keyup="user.errors.clear()" @submit.prevent="login" method="get">
                     <p class="text-lg text-red-500" v-if="user.errors.any()">
                         {{ user.errors.message() }}

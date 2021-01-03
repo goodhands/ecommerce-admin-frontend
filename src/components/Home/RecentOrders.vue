@@ -29,7 +29,7 @@
                 <router-link class="btn btn-primary" :to="{ name: 'Order', params: { id: item.id }}">View</router-link>
             </template>
         </lists-flex>
-        <router-link :to="details_link" v-if="this.orders.length > 3" class="btn -mt-2 w-full block text-center">
+        <router-link :to="details_link" v-if="this.orders.length > 5" class="btn -mt-2 w-full block text-center">
             View all
         </router-link>
     </div>
@@ -55,19 +55,19 @@ export default {
     },
     methods:{
         async getRecentOrders(){
-            Dashboard.getRecentOrders().then( response => {
-                this.orders = response.data.orders;
-                this.count = response.data.orders_count;
-                this.details_link = response.data.full_orders_link ? response.data.full_orders_link : null;
-
-                console.log(response);
-            }).catch(err => console.log(err));
+            Dashboard.getRecentOrders().then((response) => {
+                this.orders = response;
+                this.count = response.length;
+                this.details_link = response.length > 5 ? "/orders?filter[paid]=1&filter[fulfilled]=0&sort=-created_at" : null;
+            }).catch((err) => {
+                console.log(err);
+            });
         }
     },
     computed:{
         firstThreeorders(){
-            if(this.orders.length > 3){
-                return this.orders.slice(0, 3);
+            if(this.orders.length > 5){
+                return this.orders.slice(0, 5);
             }else{
                 return this.orders;
             }
