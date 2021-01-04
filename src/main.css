@@ -33,3 +33,7 @@
 .text-muted{
     @apply text-sm text-gray-400;
 }
+
+.link{
+    @apply hover:bg-gray-200
+}

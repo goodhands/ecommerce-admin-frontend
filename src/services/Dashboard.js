@@ -1,10 +1,24 @@
 import axios from 'axios';
 import Orders from '@/models/Orders';
+import Customers from '@/models/Customers';
 
 const Dashboard  = {    
     async getWeeklyStats(){
-    
-        return axios.get('/store/outlets/dashboard/weekly-stats');
+        const response = await Orders
+                .where('fulfilled', true)
+                .where('paid', true)
+                .whereIn('date_between', ['this week', 'today'])
+                .get()
+        return response;
+    },
+
+    async getWeeklyCustomers(){
+        const currentWeek = await Customers
+                            .whereIn('date_between', ['this week', 'today'])
+                            .orderBy('-created_at')
+                            .get();
+        
+        return currentWeek;
     },
 
     /**
@@ -29,6 +43,12 @@ const Dashboard  = {
         return orders;
     },
 
+    /**
+     * Response body:
+     *  Criteria:
+     *      -most viewed in the past week
+     *      -
+     */
     async getMostViewedProducts(){
         return axios.get('/store/outlets/dashboard/most-viewed');
     }

@@ -1,10 +1,45 @@
 <template>
     <div class="my-10">
-        <DataTable :headings="headings" :options="options" :data="data" :filter="true" :slots="['order']">
-            <template v-slot="{order}">
+        <DataTable :headings="headings" :options="options" :data="data" :filters="filters" :slots="['id', 'customer']">
+            <template v-slot:id="{id}">
                 <span class="bg-red-500">
-                    {{ "#" + order }}
+                    {{ "#" + id }}
                 </span>                   
+            </template>
+            <template v-slot:products={products}>
+                <Menu>
+                    <template #menu-button>                               
+                        {{ products.length + " items" }}
+                    </template>
+                    <template #menu-body>    
+                        <router-link :to="{ name: 'Product', params:{ id: product.id } }" 
+                                    class="flex flex-row items-center px-2 space-x-4 link" 
+                                    v-for="product in products" :key="product.id">
+                            <img :src="product.media_library[0]" class="h-10 w-10"> 
+                            <div class="flex flex-col">
+                                <h4 class="text-bold">{{ product.name }}</h4>
+                                <span class="text-muted">
+                                    {{ product.pivot.quantity }} quantity
+                                </span>
+                            </div>
+                        </router-link>
+                    </template>
+                </Menu>
+            </template>
+            <template v-slot:created_at="{created_at}">
+                {{ created_at | dateAgo }}
+            </template>
+            <template v-slot:customer="{customer}">
+                <Menu>
+                    <template #menu-button>
+                      {{ customer.firstname + " " + customer.lastname }}
+                    </template>
+                    <template #menu-body>
+                        <div class="text-sm text-gray-500">
+                            {{ customer.email || customer.phone }}
+                        </div>
+                    </template>
+                </Menu>
             </template>
         </DataTable>
     </div>
@@ -12,23 +47,29 @@
 
 <script>
 import DataTable from '@/components/Table/Table.vue'
-import Select from '@/components/Menu/Select.vue';
-// import Filter from '@/components/Table/Filter.vue';
+import OrderService from '@/services/OrderService';
 
 export default {
     data() {
         return {
-            data:[
-                { order: '1224', products: [{name: 'Mask'}, {name: 'Shoe'}], customer: [{name:'Samuel'}], created_at: '2020-12-02' }
-            ],
+            data:[],
             headings: [
                 {
-                    key: 'order',
+                    key: 'id',
                     label: 'OrderID'
                 },
                 {
                     key: 'products',
                     label: 'Product'
+                },
+                {
+                    key: 'total',
+                    label: 'Amount',
+                    type: 'money'
+                },
+                {
+                    key: 'payment_status',
+                    label: 'Payment'
                 },
                 {
                     key: 'created_at',
@@ -39,14 +80,44 @@ export default {
                     label: 'Customer'
                 }
             ],
-            options:[
-                {colspan:1, content: Select},
-                {colspan: 1}
-            ]
+            filters:[
+                {
+                    active: true,
+                    label: 'All',
+                    query: {}
+                },
+                {
+                    active: true,
+                    label: 'Paid',
+                    query: {paid: true}
+                },
+                {
+                    active: true,
+                    label: 'Fulfilled',
+                    query: {fulfilled: true}
+                },
+            ],
+            options:[]
         }
     },
-    components:{
-        DataTable
+    methods:{
+        getOrders(query){
+            OrderService.index(query).then((result) => {
+                this.data = result;
+            }).catch((err) => {
+                console.log(err);
+            });
+        }
     },
+    mounted(){
+        this.getOrders(this.$route.query);
+    },
+    components:{
+        DataTable, 
+    },
+    beforeRouteUpdate(to, from, next){
+        this.getOrders(to.query);
+        next();
+    }
 }
 </script>

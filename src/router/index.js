@@ -24,6 +24,17 @@ const routes = [
     ]
   },
   {
+    path: '/products',
+    name: 'Products',
+    component: Orders,
+    children: [
+      {
+        path: ':id',
+        name: 'Product',
+      }
+    ]
+  },
+  {
     path: '/login',
     name: 'Login',
     components:{

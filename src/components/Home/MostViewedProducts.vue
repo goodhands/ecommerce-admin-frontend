@@ -28,7 +28,7 @@ export default {
     data() {
         return {
             products: [],
-            busy: true,
+            busy: false,
             dateTime: null
         }
     },
@@ -42,7 +42,7 @@ export default {
         }
     },
     mounted(){
-        this.getMostViewedProducts();
+        // this.getMostViewedProducts();
     },
     components:{
         ListsFlex

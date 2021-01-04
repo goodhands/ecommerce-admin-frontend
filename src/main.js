@@ -5,6 +5,9 @@ import './main.css';
 import router from './router'
 import { Model } from 'vue-api-query'
 import store from './store'
+import './filters';
+import './directives/index';
+import "@/components/Html/global.js"
 
 Vue.config.productionTip = false
 
@@ -12,30 +15,6 @@ Vue.config.productionTip = false
 Model.$http = axios
 
 //Global directives
-
-//Control the way money values are displayed. 
-//We could want to get the user's currency or sumn
-const money = new Intl.NumberFormat('en-NG', {
-  style: "currency",
-  currency: "NGN",
-  minimumFractionDigits: 2
-});
-
-Vue.directive('money', {
-  //using update for cases where the value is from db
-  inserted: function(el, binding){
-    if(!binding.value) return;
-    el.innerText = money.format(binding.value);
-  },
-  update: function(el, binding){
-    if(!binding.value) return;
-    el.innerText = money.format(binding.value);
-  }
-});
-
-Vue.filter('money', function(value){
-  return money.format(value);
-})
 
 new Vue({
   router,
