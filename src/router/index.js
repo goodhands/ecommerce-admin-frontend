@@ -3,7 +3,9 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Orders from '../views/Orders.vue'
 import Products from '../views/Products/Products.vue';
+import ProductSingle from '../views/Products/ProductSingle.vue';
 import Collections from '../views/Products/Collections.vue';
+import CollectionSingle from '../views/Products/CollectionSingle.vue';
 import Login from '../views/auth/Login.vue';
 
 Vue.use(VueRouter)
@@ -33,6 +35,7 @@ const routes = [
       {
         path: ':id',
         name: 'Product',
+        component: ProductSingle
       },
     ]
   },
@@ -44,6 +47,7 @@ const routes = [
       {
         path: ':id',
         name: 'Collection',
+        component: CollectionSingle
       },
     ]
   },

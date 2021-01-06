@@ -26,10 +26,7 @@
                     </template>
                 </Menu>
             </template>
-            <template v-slot:created_at="{created_at}">
-                {{ created_at | dateAgo }}
-            </template>
-            <template v-slot:customer="{customer}">
+            <template v-slot:customer="{customer}" class="text-sm text-gray-900">
                 {{ customer.firstname + " " + customer.lastname }}
             </template>
         </DataTable>
@@ -64,7 +61,8 @@ export default {
                 },
                 {
                     key: 'created_at',
-                    label: 'Date'
+                    label: 'Date',
+                    type: 'date'
                 },
                 {
                     key: 'customer',

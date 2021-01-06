@@ -1,9 +1,9 @@
 <template>
     <div class="my-10">
         <DataTable :headings="headings" :options="options" :data="data" :filters="filters">
-            <template v-slot:media_library={media_library}>
+            <template v-slot:media={media}>
                 <div class="flex flex-row items-center justify-between space-x-1">
-                    <img :src="media" v-for="media in (media_library.slice(0, 2))" :key="media"
+                    <img :src="media" v-for="file in media" :key="file"
                         class="w-10 h-auto rounded" alt="">
                 </div>
             </template>
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import ProductService from '@/services/ProductService'
+import CollectionService from '@/services/CollectionService'
 import DataTable from '@/components/Table/Table';
 
 export default {
@@ -20,32 +20,25 @@ export default {
         return {
             headings: [
                 {
-                    key: 'media_library',
-                    label: ''
+                    key: 'media',
                 },
                 {
                     key: 'name',
                     label: 'Name'
                 },
                 {
-                    key: 'price',
-                    label: 'Price',
-                    type: 'money'
+                    key: 'description',
+                    label: 'Description'
                 },
                 {
-                    key: 'status',
-                    label: 'Status',
-                    type: 'status'
+                    key: 'products_count',
+                    label: 'Products',
                 },
                 {
                     key: 'created_at',
                     label: 'Date',
                     type: 'date'
                 },
-                {
-                    key: 'stock',
-                    label: 'Stock'
-                }
             ],
             options:[],
             data: [],
@@ -55,23 +48,13 @@ export default {
                     label: 'All',
                     query: {}
                 },
-                {
-                    active: true,
-                    label: 'Published',
-                    query: {status: 'published'}
-                },
-                {   
-                    active: true,
-                    label: 'Draft',
-                    query: {status: 'draft'}
-                },
             ]
         }
     },
 
     methods:{
-        getProducts(query){
-            ProductService.index(query).then((result) => {
+        getCollections(query){
+            CollectionService.index(query).then((result) => {
                 this.data = result;
             }).catch((err) => {
                 console.log(err);
@@ -79,13 +62,13 @@ export default {
         }
     },    
     mounted(){
-        this.getProducts(this.$route.query);
+        this.getCollections(this.$route.query);
     },
     components:{
         DataTable, 
     },
     beforeRouteUpdate(to, from, next){
-        this.getProducts(to.query);
+        this.getCollections(to.query);
         next();
     }
 }

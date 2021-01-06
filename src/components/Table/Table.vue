@@ -57,7 +57,12 @@
                                             <div class="text-sm text-gray-900" v-else-if="heading.type && heading.type == 'status'">
                                                     <span>{{ item[heading.key].toUpperCase() }}</span>
                                             </div>
-                                            <div v-else class="text-sm text-gray-900">{{ item[heading.key] }}</div>
+                                            <div v-else-if="item[heading.key] != null" class="text-sm text-gray-900">
+                                                {{ item[heading.key] }}
+                                            </div>
+                                            <div v-else class="text-sm text-gray-900 italic">
+                                                {{ "No " + heading.key }}
+                                            </div>
                                         </router-link>
                                     </slot>
                             </td>
