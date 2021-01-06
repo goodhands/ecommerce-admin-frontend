@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Orders from '../views/Orders.vue'
+import Products from '../views/Products.vue';
 import Login from '../views/auth/Login.vue';
 
 Vue.use(VueRouter)
@@ -26,7 +27,7 @@ const routes = [
   {
     path: '/products',
     name: 'Products',
-    component: Orders,
+    component: Products,
     children: [
       {
         path: ':id',

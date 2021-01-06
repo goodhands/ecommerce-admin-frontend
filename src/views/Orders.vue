@@ -1,11 +1,6 @@
 <template>
     <div class="my-10">
-        <DataTable :headings="headings" :options="options" :data="data" :filters="filters" :slots="['id', 'customer']">
-            <template v-slot:id="{id}">
-                <span class="bg-red-500">
-                    {{ "#" + id }}
-                </span>                   
-            </template>
+        <DataTable :headings="headings" :options="options" :data="data" :filters="filters">
             <template v-slot:products={products}>
                 <Menu>
                     <template #menu-button>                               
@@ -30,16 +25,7 @@
                 {{ created_at | dateAgo }}
             </template>
             <template v-slot:customer="{customer}">
-                <Menu>
-                    <template #menu-button>
-                      {{ customer.firstname + " " + customer.lastname }}
-                    </template>
-                    <template #menu-body>
-                        <div class="text-sm text-gray-500">
-                            {{ customer.email || customer.phone }}
-                        </div>
-                    </template>
-                </Menu>
+                {{ customer.firstname + " " + customer.lastname }}
             </template>
         </DataTable>
     </div>

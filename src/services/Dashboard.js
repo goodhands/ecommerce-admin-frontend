@@ -1,4 +1,3 @@
-import axios from 'axios';
 import Orders from '@/models/Orders';
 import Customers from '@/models/Customers';
 
@@ -50,7 +49,7 @@ const Dashboard  = {
      *      -
      */
     async getMostViewedProducts(){
-        return axios.get('/store/outlets/dashboard/most-viewed');
+        // return axios.get('/store/outlets/dashboard/most-viewed');
     }
 
 }
