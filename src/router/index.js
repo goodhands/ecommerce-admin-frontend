@@ -2,7 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Orders from '../views/Orders.vue'
-import Products from '../views/Products.vue';
+import Products from '../views/Products/Products.vue';
+import Collections from '../views/Products/Collections.vue';
 import Login from '../views/auth/Login.vue';
 
 Vue.use(VueRouter)
@@ -32,7 +33,18 @@ const routes = [
       {
         path: ':id',
         name: 'Product',
-      }
+      },
+    ]
+  },
+  {
+    path: '/collections',
+    name: 'Collections',
+    component: Collections,
+    children: [
+      {
+        path: ':id',
+        name: 'Collection',
+      },
     ]
   },
   {
