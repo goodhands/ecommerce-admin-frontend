@@ -1,6 +1,11 @@
 <template>
     <div class="my-10">
         <DataTable :headings="headings" :options="options" :data="data" :filters="filters">
+            <template v-slot:id={id}>
+                <router-link class="hover:underline" :to="{name: 'Order', params:{id: id}}">
+                    {{ "#" + id }}
+                </router-link>
+            </template>
             <template v-slot:products={products}>
                 <Menu>
                     <template #menu-button>                               

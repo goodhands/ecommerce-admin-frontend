@@ -42,14 +42,20 @@
                             </th>
                         </tr>
                     </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
+                    <tbody class="bg-white divide-y divide-gray-200" v-if="data !== null || data.length != 0">
                         <tr v-for="(item, index) in data" :key="index">
                             <td class="px-6 py-4 whitespace-nowrap" v-for="(heading, indices) in headings" :key="indices">
                                     <slot :name="heading.key" v-bind:[heading.key]="item[heading.key]">
                                         <!-- Hacky way to get the singular path name. e.g: Orders -> Order -->
-                                        <router-link :to="{name: routeName.slice(0, routeName.length - 1), params: {id: item['id']}}">
+                                        <router-link :to="{name: nextrouteName, params: {id: item['id']}}">
                                             <div class="text-sm text-gray-900" v-if="heading.type && heading.type == 'money'">
                                                 {{ item[heading.key] | money }}
+                                            </div>
+                                            <div class="text-sm text-gray-900" v-else-if="heading.type && heading.type == 'date'">
+                                                {{ item[heading.key] | dateAgo }}
+                                            </div>
+                                            <div class="text-sm text-gray-900" v-else-if="heading.type && heading.type == 'status'">
+                                                    <span>{{ item[heading.key].toUpperCase() }}</span>
                                             </div>
                                             <div v-else class="text-sm text-gray-900">{{ item[heading.key] }}</div>
                                         </router-link>
@@ -57,6 +63,9 @@
                             </td>
                         </tr>
                     </tbody>
+                    <span v-else>
+                        Loading
+                    </span>
                 </table>
             </div>
             </div>
@@ -129,6 +138,9 @@ export default {
         remainingCols(){
             return this.headings.length - 4;
         },
+        nextrouteName(){
+            return this.$route.name.substr(0, this.$route.name.length - 1);
+        }
     }
 }
 </script>
