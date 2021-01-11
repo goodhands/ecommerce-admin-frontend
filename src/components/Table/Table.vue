@@ -115,7 +115,6 @@ export default {
     },
     methods:{
         onFiltered(value){
-            console.log("Just receieved a filtered event");
             this.data = value;
         },
 
@@ -123,8 +122,14 @@ export default {
             if(Object.keys(filter.query).length > 1){
                 throw new Error("Only query per filter is allowed");
             }
-
-            if(Object.keys(filter.query).length < 1) return;
+            
+            //if no query is supplied, show all
+            if(Object.keys(filter.query).length < 1) {
+                //set the button text to the selected menu
+                this.activeFilter = filter.label;
+                this.$router.push(this.currentPath);
+                return;
+            }
 
             //set the button text to the selected menu
             this.activeFilter = filter.label;
