@@ -13,7 +13,7 @@
 
       <router-link to="/about">Your store</router-link>
     </div>
-    <div id="main" class="px-10 w-8/12 bg-gray-100 border-gray-300 border-l-1 border-r-1 py-10">
+    <div id="main" class="px-10 w-10/12 bg-gray-100 border-gray-300 border-l-1 border-r-1 py-10">
       <div class="flex flex-row justify-between">
         <h2 class="font-bold text-3xl font-heading">
           {{ $route.name }}
@@ -21,13 +21,6 @@
           <Search/>
       </div>
       <router-view name="default"/>
-    </div>
-    <div id="sidebar" class="my-10 p-5 w-2/12 flex flex-col h-screen">
-      <p class="font-heading text-center text-sm mb-5">Good morning Samuel</p>
-      <span class="block text-center text-gray-300">Your store activity</span>
-      <h2 class="text-center text-3xl mb-5 font-heading font-extrabold">₦125,002.10</h2>
-      
-      <div class="card"></div>
     </div>
   </div>
 </template>

@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Orders from '../views/Orders.vue'
 import Products from '../views/Products/Products.vue';
-import ProductSingle from '../views/Products/ProductSingle.vue';
+import ProductSingle from '@/views/Products/ProductSingle.vue';
 import Collections from '../views/Products/Collections.vue';
 import CollectionSingle from '../views/Products/CollectionSingle.vue';
 import Login from '../views/auth/Login.vue';
@@ -31,13 +31,11 @@ const routes = [
     path: '/products',
     name: 'Products',
     component: Products,
-    children: [
-      {
-        path: ':id',
-        name: 'Product',
-        component: ProductSingle
-      },
-    ]
+  },
+  {
+    path: '/products/:id',
+    name: 'Product',
+    component: ProductSingle
   },
   {
     path: '/collections',

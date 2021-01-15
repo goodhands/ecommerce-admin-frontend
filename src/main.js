@@ -6,6 +6,7 @@ import router from './router'
 import { Model } from 'vue-api-query'
 import store from './store'
 import './filters';
+import "vue-trix";
 import './directives/index';
 import "@/components/Html/global.js"
 

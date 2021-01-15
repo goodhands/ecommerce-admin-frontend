@@ -30,10 +30,22 @@
     @apply border-1 border-gray-200 shadow-sm rounded py-1 px-2 hover:bg-gray-100
 }
 
+.btn-md{
+    @apply border-1 border-gray-50 bg-blue-300 shadow-sm rounded py-2 px-5 hover:bg-blue-500
+}
+
 .text-muted{
     @apply text-sm text-gray-400;
 }
 
 .link{
     @apply hover:bg-gray-200
+}
+
+.money-input{
+    background-image: url('./assets/nigeria-naira-currency-symbol.svg');
+    @apply pl-8;
+    background-position: left;
+    background-size: 33px 16px;
+    background-repeat: no-repeat;
 }
