@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import user from './modules/user';
 import store from './modules/store';
 import collection from './modules/collection';
+import product from './modules/product';
 
 Vue.use(Vuex)
 
@@ -23,6 +24,7 @@ export default new Vuex.Store({
     modules: {
         user,
         store,
-        collection
+        collection,
+        product
     }
 })

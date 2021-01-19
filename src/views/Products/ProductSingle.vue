@@ -17,6 +17,7 @@
                     <div class="form-group-double flex flex-row justify-between">
                         <div class="flex flex-col p-3 w-6/12">
                             <label for="media" class="font-bold cursor-pointer">Media</label>
+                            <file-uploader></file-uploader>
                         </div>
                     </div>
                 </div>
@@ -33,29 +34,49 @@
                         </div>
                     </div>
                 </div>
+                <!-- Inventory -->
+                <div class="card my-3">
+                    <div class="flex flex-col p-3 w-12">
+                        <label for="price" class="font-bold cursor-pointer">Inventory</label>
+                    </div>
+                    <div class="form-group-double flex flex-row justify-between">
+                        <div class="flex flex-col p-3 w-6/12">
+                            <label for="sku" class="font-bold cursor-pointer">SKU</label>
+                            <small class="text-muted">Store Keeping Unit</small>
+                            <input v-model="sku" type="text" class="border card outline-none focus-within:bg-gray-50 bg-black" id="sku">
+                        </div>
+                        <div class="flex flex-col p-3 w-6/12">
+                            <label for="isbn" class="font-bold cursor-pointer">ISBN</label>
+                            <small class="text-muted">Useful when selling items stationary items</small>
+                            <input v-model="isbn" type="text" class="border card outline-none focus-within:bg-gray-50 bg-black" id="isbn">
+                        </div>
+                    </div>
+                </div>
+                <!-- Shipping -->
+                <div class="card my-3">
+                    <div class="flex flex-col p-3 w-12">
+                        <label for="price" class="font-bold cursor-pointer">Shipping</label>
+                    </div>
+                    <div class="form-group-double flex flex-row justify-between">
+                        <div class="flex flex-col p-3 w-full">
+                            <label for="weight" class="font-bold cursor-pointer">Weight (kg)</label>
+                            <small class="text-muted">
+                                Used to calculate shipping rates at checkout and label prices during fulfillment.
+                            </small>
+                            <input v-model="weight" type="number" class="border card outline-none focus-within:bg-gray-50 bg-black" id="weight">
+                        </div>
+                    </div>
+                </div>
                 <!-- Variations -->
                 <div class="card my-4">
                     <div class="form-group flex flex-col p-3">
-                        <label for="quantity" class="font-bold cursor-pointer">Variations</label>
+                        <label for="variation" class="font-bold cursor-pointer">Variations</label>
                         <label for="variation" class="text-mute my-2">
                             <input type="checkbox" @change="showVariation = !showVariation" id="variation">
                             This product has variations?
                         </label>
                         <Variation v-if="showVariation"/>
                     </div>           
-                </div>
-                <!-- Shipping -->
-                <div class="card my-3">
-                    <div class="form-group-double flex flex-row justify-between">
-                        <div class="flex flex-col p-3 w-6/12">
-                            <label for="price" class="font-bold cursor-pointer">Shipping</label>
-                            <input v-model="price" type="number" class="money-input border card outline-none focus-within:bg-gray-50 bg-black" id="price">
-                        </div>
-                        <div class="flex flex-col p-3 w-6/12">
-                            <label for="discount" class="font-bold cursor-pointer">Discount</label>
-                            <input v-model="discount" type="number" class="money-input border card outline-none focus-within:bg-gray-50 bg-black" id="discount">
-                        </div>
-                    </div>
                 </div>
             <button class="btn-md btn-primary bg-blue-300">Save</button>
             </div>
@@ -79,6 +100,7 @@
                     </div>
                     <div class="form-group flex flex-col p-3">
                         <label for="quantity" class="font-bold cursor-pointer">Quantity</label>
+                        <small class="text-muted" v-if="newQuantity">Adding {{ newQuantity }} items to stock</small>
                         <input type="number" v-model="quantity" class="card" id="quantity">
                     </div>                  
                 </div>
@@ -92,6 +114,7 @@ import ProductService from "@/services/ProductService.js";
 import Variation from "@/components/Product/Variation.vue";
 import VueTrix from "vue-trix";
 import { mapState } from 'vuex';
+import FileUploader from '@/components/Product/FileUploader.vue';
 export default {
     name: "Product",
     data: function() {
@@ -104,6 +127,9 @@ export default {
             collection_id: null,
             quantity: null,
             product: [],
+            weight: null,
+            sku: null,
+            isbn: null,
             showVariation: false,
             variation:{
                 type: "size"
@@ -129,16 +155,27 @@ export default {
     computed:{
         ...mapState('collection', [
             'collections'
-        ])
+        ]),
+        newQuantity(){
+            if(this.product.stock && this.quantity > this.product.stock)
+                return parseInt(this.quantity) - parseInt(this.product.stock);
+            else
+                return false;
+        }
     },
     mounted(){
         //load all categories
         this.$store.dispatch('collection/index');
         this.getProduct(this.$route.params.id);
     },
+    updated(){
+        //set the product to store once we have the results from server
+        this.$store.dispatch('product/get', this.product.id);
+    },
     components:{
         VueTrix,
-        Variation
+        Variation,
+        FileUploader
     },
     beforeRouteUpdate(to, from, next){
         this.getProduct(to.params.id);

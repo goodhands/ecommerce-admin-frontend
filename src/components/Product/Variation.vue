@@ -27,7 +27,7 @@ export default {
     data: function(){
         return {
             types: [
-                'size', 'color', 'length', 'type', 'shape'
+                'size', 'color', 'material', 'type'
             ],
             variations: [{
                 values: '',
