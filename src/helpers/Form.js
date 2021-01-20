@@ -12,7 +12,19 @@ class Form {
         axios.defaults.headers.common['Accept'] = 'application/json';
         axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         axios.defaults.withCredentials = true;
-        axios.defaults.baseURL = 'http://localhost:8000';
+
+        const baseURL = process.env.VUE_APP_API_BASE_URL;
+
+        //set app base URL
+        const storeUrl = JSON.parse(window.localStorage.getItem('store'));
+
+        if(!storeUrl) {
+            this.appBaseURL = baseURL;
+        }else{
+            const fullUrl = baseURL + '/api/v1/store/' + storeUrl.shortname;
+            this.appBaseURL = fullUrl;
+        }
+    
 
         this.originalData = data;
 
@@ -55,8 +67,8 @@ class Form {
      * .
      * @param {string} url
      */
-    post(url) {
-        return this.submit('post', url);
+    post(url, params = null) {
+        return this.submit('post', url, params);
     }
 
 
@@ -95,9 +107,9 @@ class Form {
      */
     login(){
         return new Promise((resolve, reject) => {
-            axios.get('/sanctum/csrf-cookie')
+        axios.get(this.baseURL + '/sanctum/csrf-cookie')
                 .then(() => {
-                    axios.post('/login', this.data())
+                    axios.post(this.baseURL + '/login', this.data())
                         .then(response => {
                             this.onSuccess(response.data);
                             resolve(response.data); 
@@ -117,12 +129,14 @@ class Form {
      * @param {string} requestType
      * @param {string} url
      */
-    submit(requestType, url) {
+    submit(requestType, url, params = null) {
         return new Promise((resolve, reject) => {
-            axios[requestType](url, this.data())
+            axios[requestType](this.appBaseURL + url, this.data(), {
+                params: params
+            })
                 .then(response => {
                     this.onSuccess(response.data);
-                    if(requestType == "post" || requestType == "delete"){
+                    if(requestType == "delete"){
                         this.reset();
                     }   
                     resolve(response.data); 

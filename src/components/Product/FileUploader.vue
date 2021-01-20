@@ -6,9 +6,9 @@
         ref="pond"
         label-idle="Drop files here..."
         v-bind:allow-multiple="true"
-        accepted-file-types="image/jpeg, image/png"
-        :server="endpoint"
-        v-bind:files="files"
+        :server="myCustomServerUpload"
+        accepted-file-types="image/jpeg, image/png, image/jpg"
+        v-bind:files="myFiles"
         v-on:init="handleFilePondInit"
         v-on:addfilestart="updateEndpoint"/>
 
@@ -18,7 +18,7 @@
 <script>
 import vueFilePond from 'vue-filepond';
 import 'filepond/dist/filepond.min.css';
-
+import axios from 'axios';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
@@ -32,7 +32,44 @@ export default {
     data: function() {
         return {
             endpoint: null,
-            myFiles: []
+            myFiles: [],
+            myCustomServerUpload:{
+                process: (fieldName, file, metadata, load, error, progress) => {
+
+                    // files is the name of the input field
+                    // file is the actual file object to send
+                    const formData = new FormData();
+                    formData.append(fieldName, file, file.name);
+                    formData.append('productId', this.product.id);
+
+                    // related to aborting the request
+                    const CancelToken = axios.CancelToken;
+                    const source = CancelToken.source();
+
+                    axios.post(this.endpoint, formData, {
+                        cancelToken: source.token,
+                        onUploadProgress: function (e) {
+                            progress(e.lengthComputable, e.loaded, e.total);    
+                        },
+
+                    }).then(response => {
+                        load(response.data.responseText)
+                    }).catch((thrown) => {
+                        if (axios.isCancel(thrown)) {
+                            console.log('Request canceled', thrown.message);
+                        } else {
+                            // handle error
+                        }
+                    });
+                    
+                    // Should expose an abort method so the request can be cancelled
+                    return {
+                        abort: () => {
+                            source.cancel('Operation cancelled by user');
+                        }
+                    };
+                }
+            }
         };
     },
     computed:{
@@ -57,13 +94,10 @@ export default {
         handleFilePondInit: function() {
             console.log('FilePond has initialized');
             // FilePond instance methods are available on `this.$refs.pond`
-
-            //show already existing files if available
-            this.$refs.pond.addFiles(this.files);
-        }
+        },
     },
     mounted() {
-        console.log(this.product)
+        // console.log(this.product)
     },
     components: {
         FilePond

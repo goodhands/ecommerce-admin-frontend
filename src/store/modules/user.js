@@ -36,7 +36,7 @@ const actions = {
             const localStorage = window.localStorage;
 
             if(Object.prototype.hasOwnProperty.call(response, "user") ){
-                router.push('/');
+                router.push({name: 'Overview'});
 
                 //store some items in local storage
                 localStorage.setItem('auth', true);

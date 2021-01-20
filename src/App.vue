@@ -1,9 +1,9 @@
 <template>
-  <div v-if="!userIsLoggedIn">
+  <div v-if="userIsLoggedIn == 'false'">
     <div class="w-full bg-black h-10"></div>
     <router-view name="auth"/>
   </div>
-  <div id="app" class="absolute flex flex-row w-full" v-else>
+  <div class="absolute flex flex-row w-full" v-else>
     <div id="nav" class="w-2/12 h-screen px-2 flex flex-col justify-between my-10">
       <router-link to="/" class="block">Logo</router-link>
 
@@ -47,16 +47,8 @@ export default {
   },
   components:{
     NavItems,         
-    Search
-
+    Search,
   },
-  beforeRouteLeave(to, from, next){
-    const isAuthenticated = this.userIsLoggedIn;
-    console.log(isAuthenticated);
-    if (to.name !== 'Login' && isAuthenticated != 'true') next({ name: 'Login' })
-    else next()
-    
-  }
 
 }
 </script>
