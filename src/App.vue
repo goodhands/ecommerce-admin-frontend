@@ -43,11 +43,20 @@ export default {
   },
   mounted(){
     this.$store.commit('user/setAuthStatus', this.storage.getItem('auth'));
+    this.$store.commit('store/setStore', JSON.parse(this.storage.getItem('store')), {root: true});
   },
   components:{
     NavItems,         
     Search
 
-  }  
+  },
+  beforeRouteLeave(to, from, next){
+    const isAuthenticated = this.userIsLoggedIn;
+    console.log(isAuthenticated);
+    if (to.name !== 'Login' && isAuthenticated != 'true') next({ name: 'Login' })
+    else next()
+    
+  }
+
 }
 </script>

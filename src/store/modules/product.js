@@ -27,7 +27,7 @@ const actions = {
     },
 
     get({commit}, id){
-        const product = ProductService.find(id);
+        const product = ProductService.getById(id);
         product.then((response) => {
             commit('setProduct', response);
         }, console.error)

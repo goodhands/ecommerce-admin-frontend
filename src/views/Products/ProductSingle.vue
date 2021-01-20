@@ -15,7 +15,7 @@
                 <!-- Media -->
                 <div class="card my-3">
                     <div class="form-group-double flex flex-row justify-between">
-                        <div class="flex flex-col p-3 w-6/12">
+                        <div class="flex flex-col p-3 w-full">
                             <label for="media" class="font-bold cursor-pointer">Media</label>
                             <file-uploader></file-uploader>
                         </div>
@@ -126,14 +126,10 @@ export default {
             title: null,
             collection_id: null,
             quantity: null,
-            product: [],
             weight: null,
             sku: null,
             isbn: null,
             showVariation: false,
-            variation:{
-                type: "size"
-            }
         }
     },
     methods:{
@@ -141,7 +137,11 @@ export default {
             this.busy = true;
             ProductService.getById(id).then((result) => {
                 this.busy = false;
-                this.product = result.reduce( (data) => data);
+
+                const product = result.reduce( (data) => data);
+                //dispatch the product to store
+                this.$store.commit('product/setProduct', product);
+                
                 this.status = this.product.status;
                 this.title = this.product.name;
                 this.description = this.product.description;
@@ -149,6 +149,7 @@ export default {
                 this.price = this.product.price;
                 this.discount = this.product.discount;
                 this.collection_id = this.product.collection_id;
+
             }, console.error);
         }
     },
@@ -156,21 +157,23 @@ export default {
         ...mapState('collection', [
             'collections'
         ]),
+        ...mapState('product', [
+            'product'
+        ]),
         newQuantity(){
-            if(this.product.stock && this.quantity > this.product.stock)
+            if(this.product?.stock && this.quantity > this.product.stock)
                 return parseInt(this.quantity) - parseInt(this.product.stock);
             else
                 return false;
+        },
+        productId(){
+            return this.product.id;
         }
     },
     mounted(){
         //load all categories
         this.$store.dispatch('collection/index');
         this.getProduct(this.$route.params.id);
-    },
-    updated(){
-        //set the product to store once we have the results from server
-        this.$store.dispatch('product/get', this.product.id);
     },
     components:{
         VueTrix,

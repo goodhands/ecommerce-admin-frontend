@@ -9,7 +9,9 @@ const mutations = {
 }
 
 const getters = {
-
+    getShortname(state){
+        return state.store.shortname;
+    }
 }
 
 const actions = {
