@@ -6,8 +6,8 @@
         ref="pond"
         label-idle="Drop files here..."
         v-bind:allow-multiple="true"
-        :server="myCustomServerUpload"
-        accepted-file-types="image/jpeg, image/png, image/jpg"
+        :server="this.myCustomServerUpload"
+        accepted-file-types="image/*"
         v-bind:files="myFiles"
         v-on:init="handleFilePondInit"
         v-on:addfilestart="updateEndpoint"/>
@@ -80,7 +80,7 @@ export default {
             'getShortname'
         ]),
         files(){
-            if(this.product){
+            if(this.product != null){
                 return this.product.media_library;
             }else{
                 return [];

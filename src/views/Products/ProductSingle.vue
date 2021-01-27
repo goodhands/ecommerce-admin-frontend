@@ -74,7 +74,7 @@
                         <div class="form-group flex flex-col p-3">
                             <label for="variation" class="font-bold cursor-pointer">Variations</label>
                             <label for="variation" class="text-mute my-2">
-                                <input type="checkbox" @change="showVariation = !showVariation" id="variation">
+                                <input type="checkbox" :checked="showVariation" @change="showVariation = !showVariation" id="variation">
                                 This product has variations?
                             </label>
                             <Variation v-if="showVariation"/>
@@ -169,6 +169,7 @@ export default {
                 this.form.price = this.product.price;
                 this.form.discount = this.product.discount;
                 this.form.collection_id = this.product.collection_id;
+                this.showVariation = this.product.variant.length > 0;
 
             }, console.error);
         },
