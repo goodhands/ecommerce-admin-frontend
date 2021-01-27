@@ -1,14 +1,16 @@
 import Vue from 'vue';
-import money from '../config/money';
+import naira from '../config/money';
 
+/**
+ * Problem causing NAN is that the money config is returning the Naira sign. 
+ * We want to modify our set up to be able to return just the figures in the formatted manner 
+ */
 Vue.directive('money', {
-    //using update for cases where the value is from db
     inserted: function(el, binding){
-        if(!binding.value) return;
-        el.innerText = money.format(binding.value);
+        el.innerText = naira.format(binding.value);
     },
+    //using update for cases where the value is from db
     update: function(el, binding){
-        if(!binding.value) return;
-        el.innerText = money.format(binding.value);
-    }
+        el.innerText = naira.format(binding.value);
+    },
 });

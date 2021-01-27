@@ -13,15 +13,16 @@ class Form {
         axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         axios.defaults.withCredentials = true;
 
-        const baseURL = process.env.VUE_APP_API_BASE_URL;
+        this.baseURL = process.env.VUE_APP_API_BASE_URL;
 
+        console.log(this.baseURL);
         //set app base URL
         const storeUrl = JSON.parse(window.localStorage.getItem('store'));
 
         if(!storeUrl) {
-            this.appBaseURL = baseURL;
+            this.appBaseURL = this.baseURL;
         }else{
-            const fullUrl = baseURL + '/api/v1/store/' + storeUrl.shortname;
+            const fullUrl = this.baseURL + '/api/v1/store/' + storeUrl.shortname;
             this.appBaseURL = fullUrl;
         }
     

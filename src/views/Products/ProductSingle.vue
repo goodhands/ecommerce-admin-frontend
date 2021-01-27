@@ -6,7 +6,7 @@
                 <div class="w-8/12">
                     <div class="card">
                         <div class="form-group flex flex-col p-3">
-                            <label for="name" class="font-bold cursor-pointer">name</label>
+                            <label for="name" class="font-bold cursor-pointer">Name</label>
                             <input type="text" class="border card outline-none focus-within:bg-gray-50 bg-black" id="name" v-model="form.name">
                         </div>
                         <div class="form-group flex flex-col p-3">
@@ -28,7 +28,7 @@
                         <div class="form-group-double flex flex-row justify-between">
                             <div class="flex flex-col p-3 w-6/12">
                                 <label for="price" class="font-bold cursor-pointer">Price</label>
-                                <input v-model="form.price" type="number" class="money-input border card outline-none focus-within:bg-gray-50 bg-black" id="price">
+                                <input v-model="form.price" class="money-input border card outline-none focus-within:bg-gray-50 bg-black" id="price">
                             </div>
                             <div class="flex flex-col p-3 w-6/12">
                                 <label for="discount" class="font-bold cursor-pointer">Discount</label>
@@ -95,7 +95,7 @@
                         <div class="form-group flex flex-col p-3">
                             <label for="collection" class="font-bold cursor-pointer">Collection</label>
                             <select v-model="form.collection_id" class="border card outline-none focus-within:bg-gray-50 bg-black" id="collection">
-                                <option value="collection.id" :selected="isSelectedCollection(index, form.collection_id)" v-for="(collection, index) in collections" :key="index">
+                                <option :value="collection.id" :selected="isSelectedCollection(index, form.collection_id)" v-for="(collection, index) in collections" :key="index">
                                     {{ collection.name }}
                                 </option>
                             </select>
@@ -136,12 +136,15 @@ export default {
                 weight: null,
                 sku: null,
                 isbn: null,
+                variation: null,
             }),
             showVariation: false,
         }
     },
     methods:{
         save(){
+            this.form.variation = this.variations;
+
             //defer form handling to store and react to the response
             this.$store.dispatch('product/save', this.form);
         },
@@ -159,6 +162,10 @@ export default {
                 this.form.name = this.product.name;
                 this.form.description = this.product.description;
                 this.form.stock = this.product.stock;
+                this.form.weight = this.product.weight;
+                this.form.stock = this.product.stock;
+                this.form.sku = this.product.sku;
+                this.form.isbn = this.product.isbn;
                 this.form.price = this.product.price;
                 this.form.discount = this.product.discount;
                 this.form.collection_id = this.product.collection_id;
@@ -179,7 +186,8 @@ export default {
         ]),
         ...mapGetters('product', [
             'productError',
-            'product'
+            'product',
+            'variations'
         ]),
         newQuantity(){
             if(this.product?.stock && this.form.stock > this.product.stock)

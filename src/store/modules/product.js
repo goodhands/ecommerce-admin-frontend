@@ -4,6 +4,11 @@ const state = () => ({
     products: null,
     product: null,
     error: null,
+    //used when editing/creating a product
+    variation: {
+        variations: null,
+        inventory: null,
+    }
 })
 
 const mutations = {
@@ -15,6 +20,12 @@ const mutations = {
     },
     setError(state, error){
         state.error = error;
+    },
+    setVariation(state, variation){
+        state.variation.variations = variation;
+    },
+    setVariationInventory(state, inventory){
+        state.variation.inventory = inventory;
     }
 }
 
@@ -24,6 +35,9 @@ const getters = {
     },
     product: state => {
         return state.product;
+    },
+    variations: state => {
+        return state.variation;
     }
 }
 
@@ -51,6 +65,10 @@ const actions = {
             }).catch(err => {
                 commit('setError', err);
             })
+    },
+
+    removeVariation({state}, variationIndex){
+        state.variation.splice(variationIndex, 1);
     }
 
 }
