@@ -1,5 +1,6 @@
 class Errors {
     /**
+     * @author Wes Bos
      * Create a new Errors instance.
      */
     constructor() {

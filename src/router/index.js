@@ -7,6 +7,7 @@ import ProductSingle from '@/views/Products/ProductSingle.vue';
 import Collections from '../views/Products/Collections.vue';
 import CollectionSingle from '../views/Products/CollectionSingle.vue';
 import Login from '../views/auth/Login.vue';
+import Register from '@/views/auth/Register.vue';
 
 Vue.use(VueRouter)
 
@@ -53,8 +54,14 @@ const routes = [
     path: '/login',
     name: 'Login',
     components:{
-      default: Login,
       auth: Login
+    }
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    components:{
+      auth: Register
     }
   }
 ]
@@ -71,6 +78,8 @@ const router = new VueRouter({
     }
   }
 })
+
+// console.log(router)
 
 router.beforeEach((to, from, next) =>{
   const isAuthenticated = window.localStorage.getItem('auth');

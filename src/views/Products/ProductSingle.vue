@@ -7,7 +7,7 @@
                     <div class="card">
                         <div class="form-group flex flex-col p-3">
                             <label for="name" class="font-bold cursor-pointer">Name</label>
-                            <input type="text" class="border card outline-none focus-within:bg-gray-50 bg-black" id="name" v-model="form.name">
+                            <input type="text" class="md:w-12 w-4/12 border card outline-none focus-within:bg-gray-50 bg-black" id="name" v-model="form.name">
                         </div>
                         <div class="form-group flex flex-col p-3">
                             <label for="description" class="font-bold cursor-pointer">Description</label>
@@ -171,6 +171,11 @@ export default {
                 this.form.collection_id = this.product.collection_id;
                 this.showVariation = this.product.variant.length > 0;
 
+                //commit the variations to store
+                if(this.product.variant.length > 0){
+                    this.$store.commit('product/setVariation', this.product.variant);
+                    this.$store.commit('product/setVariationInventory', this.product.variant_inventory);
+                }
             }, console.error);
         },
         isSelectedCollection(index, collection_id){

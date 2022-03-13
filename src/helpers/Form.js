@@ -22,7 +22,7 @@ class Form {
         if(!storeUrl) {
             this.appBaseURL = this.baseURL;
         }else{
-            const fullUrl = this.baseURL + '/api/v1/store/' + storeUrl.shortname;
+            const fullUrl = this.baseURL + '/store/' + storeUrl.shortname;
             this.appBaseURL = fullUrl;
         }
     

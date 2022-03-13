@@ -1,26 +1,37 @@
 <template>
-  <div v-if="userIsLoggedIn == 'false'">
-    <div class="w-full bg-black h-10"></div>
+  <div v-if="!userIsLoggedIn">
+    <h2 v-if="$route.name !== 'Login' || $route.name !== 'Register'">User logged out, <router-link to="/login">login</router-link> to continue</h2>
     <router-view name="auth"/>
   </div>
-  <div class="absolute flex flex-row w-full" v-else>
-    <div id="nav" class="w-2/12 h-screen px-2 flex flex-col justify-between my-10">
-      <router-link to="/" class="block">Logo</router-link>
+  <div class="flex flex-row mx-20 2xl:mx-56" v-else>
+    <!-- LEFT SIDEBAR -->
+    <div id="nav" class="border-gray-300 border-l-1 flex flex-col h-screen px-2 sticky top-0 w-2/12">
+      <router-link to="/" class="block mb-10">Logo</router-link>
 
       <div class="nav-menu flex flex-col justify-evenly">
         <nav-items></nav-items>
       </div>
 
-      <router-link to="/about">Your store</router-link>
+      <router-link class="absolute bottom-5" to="/about">Your store</router-link>
     </div>
-    <div id="main" class="px-10 w-10/12 bg-gray-100 border-gray-300 border-l-1 border-r-1 py-10">
-      <div class="flex flex-row justify-between">
+    <!-- MAIN CONTENT -->
+    <div id="main" class="bg-gray-100 border-gray-300 border-l-1 border-r-1 flex flex-row justify-between px-10 py-10 w-10/12">
+      <div class="flex flex-col justify-between w-10/12">
         <h2 class="font-bold text-3xl font-heading">
           {{ $route.name }}
         </h2>
-          <Search/>
+        <router-view name="default"/>
       </div>
-      <router-view name="default"/>
+      <!-- RIGHT SIDEBAR -->
+      <div class="sticky top-0 flex flex-col items-center w-3/12">
+        <Search/>
+          <div id="sidebar" class="my-10 p-5 w-full flex flex-col h-screen">
+              <p class="font-heading text-center text-sm mb-5">Good morning Samuel</p>
+              <span class="block text-center text-gray-300">Your store activity</span>
+              <h2 class="text-center text-3xl mb-5 font-heading font-extrabold">₦125,002.10</h2>
+              <div class="card"></div>
+          </div>
+      </div>
     </div>
   </div>
 </template>
@@ -38,7 +49,8 @@ export default {
 
   computed:{
     userIsLoggedIn(){
-      return this.$store.getters.user.auth;
+      // return this.$store.getters.user.auth;
+      return false
     }
   },
   mounted(){

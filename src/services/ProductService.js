@@ -6,6 +6,7 @@ const ProductService  = {
     },
 
     async find(id){
+        // /products?id=id
         return await Products.find(id);
     },
 

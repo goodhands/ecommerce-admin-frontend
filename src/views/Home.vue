@@ -1,6 +1,6 @@
 <template>
-    <div class="absolute flex flex-row">
-        <div class="pt-10 w-9/12">
+    <div class="flex flex-row w-full">
+        <div class="pt-10 w-full">
             <section id="intro">
                 <analytics-cards></analytics-cards>
             </section>
@@ -59,12 +59,6 @@
                     </ul>
                 </card>
             </section>
-        </div>
-        <div id="sidebar" class="my-10 p-5 w-4/12 flex flex-col h-screen">
-            <p class="font-heading text-center text-sm mb-5">Good morning Samuel</p>
-            <span class="block text-center text-gray-300">Your store activity</span>
-            <h2 class="text-center text-3xl mb-5 font-heading font-extrabold">₦125,002.10</h2>
-            <div class="card"></div>
         </div>
     </div>
 </template>

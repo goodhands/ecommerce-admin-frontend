@@ -18,13 +18,19 @@ const mutations = {
 }
 
 const getters = {
-
+    user: (state) => {
+        return state.user
+    }
     // email: (state, getters, rootState) => {
     //     return state.email;
     // }
 }
 
 const actions = {
+    /**
+     * 
+     * @param {*} user is a custom Form object 
+     */
     login({commit, rootState}, user){
         //inform the global state we are doing some asynchronous action
         rootState.busy = true;
@@ -55,6 +61,11 @@ const actions = {
             //if the error is not auth error, log it bugsnap or something
             console.log(error.response);
         })
+    },
+
+    register({ commit }, user) {
+        user.submit(`/sign-up?step=${user.step}`).
+        then()
     }
 }
 
