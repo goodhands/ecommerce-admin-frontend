@@ -63,9 +63,11 @@ const actions = {
         })
     },
 
-    register({ commit }, user) {
+    register(user) {
         user.submit(`/sign-up?step=${user.step}`).
-        then()
+        then( (res) =>  {
+            console.log('registered user', res)
+        })
     }
 }
 

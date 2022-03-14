@@ -11,7 +11,7 @@
     "@johmun/vue-tags-input": "^2.1.0",
     "axios": "^0.21.4",
     "chart.js": "^2.9.4",
-    "core-js": "^3.19.1",
+    "core-js": "^3.21.1",
     "dinero.js": "^1.9.1",
     "filepond": "^4.30.3",
     "filepond-plugin-file-validate-type": "^1.2.6",
